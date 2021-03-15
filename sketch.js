@@ -13,6 +13,8 @@ batsmen2Image= loadAnimation("batsmen 2.png")
 ballGroup= new Group()
 batsmenHit= loadAnimation("batsmenHit.png")
 ballImage= loadImage("ball.png")
+ballCatch= loadAnimation("celebration.png")
+wicketKeeperImage= loadAnimation("Wicket Keeper.png")
 
 }
 
@@ -35,7 +37,18 @@ function setup() {
   bowler = createSprite(831,247,20,40)
   bowler.addAnimation("bowl",bowlerImage)
   bowler.scale=0.2
- 
+    batsmen.addAnimation("hit",batsmenHit)
+    
+   fielder1= createSprite(350,390)
+   fielder2= createSprite(1087,440)
+//   fielder1.addAnimation("catch",ballCatch)
+// fielder2.addAnimation("catch",ballCatch)
+
+wicketKeeper= createSprite(709,848)
+push()
+rotate(PI)
+wicketKeeper.addAnimation("wicket",wicketKeeperImage)
+pop()
 }
 
 function draw() {
@@ -63,15 +76,31 @@ if(keyWentUp("a"))
    text(mouseX+ " " +mouseY,mouseX,mouseY)
 
   if(ballGroup.isTouching(batsmen)){
-  ballGroup.setVelocityYEach(-8)
-  var rand=Math.round(random(-2,2))
+  var r=Math.round(random(-8,8))
+
+  
+  ballGroup.setVelocityYEach(r)
+  var rand=Math.round(random(-10,5))
   ballGroup.setVelocityXEach(rand)
   }
   if(ballGroup.velocityX>0)
   {
     ballGroup.destroyEach()
-  }
-  
+    }
+   if(ballGroup.isTouching(fielder1)||ballGroup.isTouching(fielder2)){
+   if(ballGroup.isTouching(fielder1)){
+   fielder1.addAnimation("catch",ballCatch)
+
+
+   }
+    if(ballGroup.isTouching(fielder2)){
+     fielder2.addAnimation("catch",ballcatch)
+
+    }
+
+
+
+   }
 
 
 
